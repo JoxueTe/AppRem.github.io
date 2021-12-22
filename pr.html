@@ -20,8 +20,8 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
           <div>
             <ul class="navbar-nav mr-auto ">
-              <li class="nav-item">
-                  <a class="nav-link" href="pr.html">Emails<span></span></a>
+              <li class="nav-item active">
+                  <a class="nav-link" href="pr.html">Emails<span class="sr-only"></span></a>
               </li>
               <li class="nav-item">
                   <a class="nav-link" href="ac.html">AC</a>
@@ -39,51 +39,58 @@
       </nav>
 
     <!-- Future Content here -->
-      
-      <div>
-        <div class="container mt-5">
-          <div class="row">
-            <div class="col">
-              <div class="card text-center bg-dark mr-2 ml-2 mt-5" style="width: 18rem;">
-                <div class="card-body">
-                  <h5 class="card-title">Email generator</h5>
-                  <p class="card-text">Generator of email templates</p>
-                  <a href="pr.html" class="btn btn-primary">Go</a>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card text-center bg-dark mr-2 ml-2 mt-5" style="width: 18rem;">
-                <div class="card-body">
-                  <h5 class="card-title">Available Case - KYC</h5>
-                  <p class="card-text">Templates for KYC notes</p>
-                  <a href="ac.html" class="btn btn-primary">Go</a>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card text-center bg-dark mr-2 ml-2 mt-5" style="width: 18rem;">
-                <div class="card-body">
-                  <h5 class="card-title">Chat</h5>
-                  <p class="card-text">A more orginize chats templates</p>
-                  <a href="chat.html" class="btn btn-primary">Go</a>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card text-center bg-dark mr-2 ml-2 mt-5" style="width: 18rem;">
-                <div class="card-body">
-                  <h5 class="card-title">Metric Calculator</h5>
-                  <p class="card-text">ugghh I will add better descriptions later</p>
-                  <a href="metrics.html" class="btn btn-primary">Go</a>
-                </div>
-              </div>
-            </div>
-          </div>
+    
+    <div class="card text-center bg-dark mr-5 ml-5 mt-5">
+        <div class="card-header">
+          Email
         </div>
-        
-        
+        <div class="card-body">
+            <div class="container">
+                <div class="row">
+                  <div class="col col-lg-2">
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Language</option>
+                        <option value="1">Spanish</option>
+                        <option value="2">English</option>
+                      </select>
+                  </div>
+                  <div class="col-md-auto">
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Email type</option>
+                        <option value="1">Status request</option>
+                        <option value="2">Rejection Request</option>
+                        <option value="3">Partner Review</option>
+                        <option value="4">Reversal Request</option>
+                        <option value="5">Proof of Disbursement</option>
+                      </select>
+                  </div>
+                  <div class="col">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon3">CRM Link</span>
+                        <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                      </div>
+                  </div>
+                </div>
+                <div class="row justify-content-md-center">
+                    <div class="col col-md-auto">
+                      <select class="form-select" aria-label="Default select example" style="display: none;">
+                          <option selected>Partner</option>
+                          <option value="1">Uniteller</option>
+                          <option value="2">BTS</option>
+                          <option value="3">Bancolombia</option>
+                          <option value="4">BTS</option>
+                        </select>
+                    </div>
+              </div>
+              <div class="input-group">
+                <textarea class="form-control container-sm mt-5" id="noteTextInput" aria-label="With textarea"></textarea>
+              </div>
+        </div>
+        <div class="card-footer text-muted">
+          
+        </div>
       </div>
+
       <!-- Optional JavaScript -->
       <!-- jQuery first, then Popper.js, then Bootstrap JS -->
       <script src='https://kit.fontawesome.com/a076d05399.js'></script>
@@ -103,8 +110,7 @@
    </style>
    
   <script>
-
-
+    
   </script>
 
 </html>
