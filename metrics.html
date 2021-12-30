@@ -99,6 +99,11 @@
    </style>
    
    <script>
+    function metricsMath(metricValue, metricWeightm, ){
+      let result = (metricValue / metricWeight * 100)
+    }
+
+
     function update(){
         var dsat_value = document.getElementById("dsat").value;
         var fcrV = document.getElementById("fcr").value;
@@ -123,20 +128,20 @@
 
         result.style.display = "inline-block";
         if (total < 100){
-            result.innerHTML = "Bronce";
+            result.innerHTML = "Bronze";
             result.style.background = "#cd7f32 ";
         } else if (total < 110){
-            result.innerHTML = "Plata";
+            result.innerHTML = "Silver";
             result.style.background = "#BEBEBE";
         } else if (total < 120){
             result.innerHTML = "Gold";
             result.style.background = "#DAA520";
         } else{
-            result.innerHTML = "Platino";
+            result.innerHTML = "Platinum";
             result.style.background = "#E5E4E2 ";
         }
 
-        console.log(total + " " + dsat + " " + fcr + " " + voice + " " + chat);
+        //console.log(total + " " + dsat + " " + fcr + " " + voice + " " + chat);
     }
   </script>
 
