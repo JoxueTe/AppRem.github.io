@@ -111,12 +111,12 @@
         var chatV = document.getElementById("chat").value;
         var result = document.getElementById("result");
 
-        let dsat = (22 /parseInt(dsat_value) * 100);
-        if (dsat > 135) dsat = 135;
-        dsat *= 45 / 100;
-        let fcr = (parseInt(fcrV) / 72 * 100);
+        let dsat = (23 /parseInt(dsat_value) * 100);
+        if (dsat > 120) dsat = 120;
+        dsat *= 35 / 100;
+        let fcr = (parseInt(fcrV) / 77 * 100);
         if (fcr > 120) fcr = 120;
-        fcr *= 25 / 100;
+        fcr *= 35 / 100;
         let voice = (700 / parseInt(voiceV) * 100);
         if (voice > 110) voice = 110;
         voice *= 15 / 100;
