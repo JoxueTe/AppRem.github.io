@@ -46,12 +46,103 @@
               AC Notes Generator
             </div>
             <div class="card-body">
-              <h1>ERROR 505</h1>
-              <h3>Embeze la bida no ez komo keremos embeze vaja embeze zuve</h3>
-              <img src="cat_cry.png" alt="" id="cat-img">
+              <form name="validations">
+                  <div class="container">
+                    <div class="row align-items-start">
+                      <div class="col mb-2">
+                        <select class="form-select" id="poi" onChange="update()" aria-label="Default select example">
+                          <option selected value="0">-POI Review-</option>
+                          <option value="1">E-Verify</option>
+                          <option value="2">Verify by previous agent</option>
+                          <option value="3">Approved</option>
+                          <option value="4">Denied</option>
+                        </select>
+                      </div>
+                      <div class="col mb-2">
+                        <select class="form-select" id="poa" onChange="update()" aria-label="Default select example">
+                          <option selected value="0">-POA Review-</option>
+                          <option value="1">E-Verify</option>
+                          <option value="2">Verify by previous agent</option>
+                          <option value="3">Approved</option>
+                          <option value="4">Denied</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row align-items-start">
+                      <div class="col mb-3">
+                        <select class="form-select" id="poiDocument" onChange="validateKyc()" aria-label="Default select example" style="display: none;">
+                          <option selected value="">Open this select menu</option>
+                          <option value="Passport">Passport</option>
+                          <option value="Visa">Visa</option>
+                          <option value="Drivers license">Drivers license</option>
+                          <option value="State ID">State ID</option>
+                          <option value="Matricula Consular">Matricula Consular</option>
+                          <option value="Military ID">Military ID </option>
+                          <option value="Other document not valid for POI">Other document not valid for POI</option>
+                        </select>
+                      </div>
+                      <div class="col mb-3">
+                        <select class="form-select" id="poaDocument" onChange="validateKyc()" aria-label="Default select example" style="display: none;">
+                          <option selected value="">Open this select menu</option>
+                          <option value="Drivers license">Drivers license</option>
+                          <option value="State ID">State ID</option>
+                          <option value="Bank Statement">Bank Statement</option>
+                          <option value="Bank Welcome letter">Bank Welcome letter</option>
+                          <option value="Pay Stub">Pay Stub</option>
+                          <option value="Utility bills">Utility bills</option>
+                          <option value="Oficial Piece of mail">Oficial Piece of mail</option>
+                          <option value="Lease agreements">Lease agreement</option>
+                          <option value="Matricula Consular">Matricula Consular</option>
+                          <option value="Cruise Ship Id">Cruise Ship Id</option>
+                          <option value="Other Document Not Valid for POA">Other Document Not Valid for POA</option>
+                          </select>
+                      </div>
+                    </div>
+                    <div class="row align-items-start">
+                      <div class="col mb-3" id="poi_denied_reason" style="display: none;">
+                        <div>
+                          <input type="checkbox" onChange="validateKyc()" id="blurry_poi" name="blurry">
+                          <label for="blurry">Blurry/Not Visible</label>
+                        </div> 
+                        <div>
+                          <input type="checkbox" onChange="validateKyc()" id="name_mismatch_poi" name="name_mismatch">
+                          <label for="nameMismatch">Name Mismatch</label>
+                        </div>    
+                        <div>
+                          <input type="checkbox" onChange="validateKyc()" id="dob_mismatch" name="expired">
+                          <label for="dobMismatch">DOB Mismatch</label>
+                        </div>
+                        <div>
+                          <input type="checkbox" onChange="validateKyc()" id="expired" name="expired">
+                          <label for="expired">Expired</label>
+                        </div>                    
+                      </div>
+                      <div class="col mb-3" id="poa_denied_reason" style="display: none;">
+                        <div>
+                          <input type="checkbox" onChange="validateKyc()" id="blurry_poa" name="blurry">
+                          <label for="blurry">Blurry/Cropped</label>
+                        </div> 
+                        <div>
+                          <input type="checkbox" onChange="validateKyc()" id="expired_poa" name="expired">
+                          <label for="expired">Expired/Older 90 days</label>
+                        </div>  
+                        <div>
+                          <input type="checkbox" onChange="validateKyc()" id="address_mismatch" name="address_Mismatch">
+                          <label for="addMismatch">Adress Mismatch</label>
+                        </div>  
+                        <div>
+                          <input type="checkbox" onChange="validateKyc()" id="name_mismatch_poa" name="name_mismatch">
+                          <label for="nameMismatch">Name Mismatch</label>
+                        </div>                    
+                      </div>
+                    </div>
+                  </div>
+                  <div class="input-group">
+                    <textarea class="form-control container-sm" id="noteTextInput" aria-label="With textarea"></textarea>
+                  </div>
             </div>
             <div class="card-footer text-muted">
-              T-T
+              Alpha v0.5
             </div>
           </div>
         </body>
@@ -65,15 +156,160 @@
    <style>
       body {
       background-color: #212121;
-      color: white;
-      font-family: monospace;
-      
+      color: white
       }
 
-      #cat-img {
-        font-size: 400px;
+      #noteTextInput {
+        height: 600px;
       }
    </style>
    
-    
+    <script>
+      // Notes Strings
+      // POI Notes Array
+      const poi_notes_array = ["- POI was e-verify", "- POI was verify by previous agent",
+                                      "ID: ", ]; 
+      var poiApproved = "\nIs Photo Visible: Yes\nIs Id Number Visible: Yes\nExpiration Date: Current\nName Matches Customer Record: Yes\nDob Matches Customer Record: Yes\nID authentic: Yes\nReview Decision: Approved"
+      const poi_denied = ["\nIs Photo Visible: No", "\nIs Id Number Visible: No", "\nExpiration Date: Current", "\nName Matches Customer Record: No", "\nDob Matches Customer Record: No", "\nID authentic: No", "\nReview Decision: Denied"]
+      const poi_valid = ["\nIs Photo Visible: Yes", "\nIs Id Number Visible: Yes", "\nExpiration Date: Expired", "\nName Matches Customer Record: Yes", "\nDob Matches Customer Record: Yes", "\nID authentic: Yes"]
+
+      // POA Notes Array
+      const poa_notes_array = ["- POA was e-verify", "- POA was verify by previous agent",
+                                      "POA: "];   
+      var poaApproved = "\nIs Company Visible: Yes\nIs Mail No Older Than Ninety Days: No older\nAddress Matches Customer Record: Yes\nName Matches Customer Record: Yes\nIs normal activity: Yes\nReview Decision: Approved"
+      const poa_denied = ["\nIs Company Visible: No", "\nIs Mail No Older Than Ninety Days: Expired/Older", "\nAddress Matches Customer Record: No", "\nName Matches Customer Record: No",  "\nIs normal activity:  No", "\nReview Decision: Denied"]
+      const poa_valid = ["\nIs Company Visible: Yes", "\nIs Mail No Older Than Ninety Days: Not Expired/Not Older", "\nAddress Matches Customer Record: Yes", "\nName Matches Customer Record: Yes", "\nIs normal activity:  Yes"]
+
+
+      // Get Filters
+      var checkBlurry = document.getElementById("blurry_poi");
+      var checkDOB = document.getElementById("dob_mismatch");
+      var checkExpired = document.getElementById("expired");
+      var checkName = document.getElementById("name_mismatch_poi");
+
+      var checkBlurry_poa = document.getElementById("blurry_poa");
+      var checkExpired_poa = document.getElementById("expired_poa");
+      var checkAddress = document.getElementById("address_mismatch");
+      var checkName_poa = document.getElementById("name_mismatch_poa");
+
+      function update()
+      {
+        var poiStatus = document.getElementById("poi").value;
+        var poaStatus = document.getElementById("poa").value;
+
+        if (poiStatus == "3" || poiStatus == "4"){
+          document.getElementById("poiDocument").style.display = "inline-block";
+        } else {
+          document.getElementById("poiDocument").style.display = "none";
+        }
+
+
+        if (poaStatus == "3" || poaStatus == "4"){
+          document.getElementById("poaDocument").style.display = "inline-block";
+        } else {
+          document.getElementById("poaDocument").style.display = "none";
+        }
+
+        validateKyc()
+      }
+
+
+      function validateKyc()
+      {
+        full_note = "*** KYC ***\n\nKount: \nSF Case: ";
+
+        // Geting Selectors
+        var poiStatus = document.getElementById("poi").value;
+        var poaStatus = document.getElementById("poa").value;
+
+        var poiDocument = document.getElementById("poiDocument").value;
+        var poaDocument = document.getElementById("poaDocument").value;
+
+        //Show Filters
+        if (poiStatus == "4"){
+          document.getElementById("poi_denied_reason").style.display = "inline-block";
+        } else {
+          document.getElementById("poi_denied_reason").style.display = "none";
+        }
+
+        if (poaStatus == "4"){
+          document.getElementById("poa_denied_reason").style.display = "inline-block";
+        } else {
+          document.getElementById("poa_denied_reason").style.display = "none";
+        }
+
+        // Update Filters
+        checkBlurry = document.getElementById("blurry_poi");
+        checkDOB = document.getElementById("dob_mismatch");
+        checkExpired = document.getElementById("expired");
+        checkName = document.getElementById("name_mismatch_poi");
+
+        checkBlurry_poa = document.getElementById("blurry_poa");
+        checkExpired_poa = document.getElementById("expired_poa");
+        checkAddress = document.getElementById("address_mismatch");
+        checkName_poa = document.getElementById("name_mismatch_poa");
+
+        //Validate POI
+        if (poiStatus == "1")
+        {
+          full_note += "\n\n" + poi_notes_array[0];
+          document.getElementById('noteTextInput').value = full_note;
+        } else if (poiStatus == "2"){
+          full_note += "\n\n" + poi_notes_array[1];
+          document.getElementById('noteTextInput').value = full_note;
+        } else if (poiStatus == "3"){
+          full_note += "\n\n" + poi_notes_array[2] + poiDocument + poiApproved;
+          document.getElementById('noteTextInput').value = full_note;
+        } else if (poiStatus == "4"){
+          let denied_poi = "\n\n" + poi_notes_array[2] + poiDocument + (checkBlurry.checked ? poi_denied[0] : poi_valid[0]) + (checkBlurry.checked ? poi_denied[1] : poi_valid[1]) + (checkExpired.checked ? poi_denied[2] : poi_valid[2]) + (checkName.checked ? poi_denied[3] : poi_valid[3]) + (checkDOB.checked ? poi_denied[4] : poi_valid[4]) + poi_valid[5] + poi_denied[6];
+          full_note += denied_poi;
+          document.getElementById('noteTextInput').value = full_note;
+        }
+        
+        //Validate POA
+        if (poaStatus == "1")
+        {
+          full_note += "\n\n" + poa_notes_array[0];
+          document.getElementById('noteTextInput').value = full_note;
+        } else if (poaStatus == "2"){
+          full_note += "\n\n" + poa_notes_array[1];
+          document.getElementById('noteTextInput').value = full_note;
+        } else if (poaStatus == "3"){
+          full_note += "\n\n" + poa_notes_array[2] + poaDocument + poaApproved;
+          document.getElementById('noteTextInput').value = full_note;
+        } else if (poaStatus == "4"){
+          let denied_poa = "\n\n" + poa_notes_array[2] + poaDocument + (checkBlurry_poa.checked ? poa_denied[0] : poa_valid[0]) + (checkExpired_poa.checked ? poa_denied[1] : poa_valid[1]) + (checkAddress.checked ? poa_denied[2] : poa_valid[2]) + (checkName_poa.checked ? poa_denied[3] : poa_valid[3]) + poa_valid[4] + poa_denied[5];
+          full_note += denied_poa;
+          document.getElementById('noteTextInput').value = full_note;
+        }
+
+        if (parseInt(poiStatus) <= 3 && parseInt(poaStatus) <= 3){
+          full_note += "\n\n+ KYC PASS";
+          document.getElementById('noteTextInput').value = full_note;
+        } else {
+          full_note += "\n\n- Move to WFCR and send SMS";
+          document.getElementById('noteTextInput').value = full_note;
+        }
+        
+      }
+    </script>
+
+          <!-- POA
+            Review Document:
+            Is Company Visible:
+            Is Mail No Older Than Ninety Days:
+            Address Matches Customer Record:
+            Name Matches Customer Record:
+            Is normal activity:
+            Decision:
+            ID
+            Review Document (ID):
+            Is Photo Visible:
+            Is Id Number Visible:
+            Expiration Date:
+            Name Matches Customer Record:
+            Dob Matches Customer Record:
+            ID authentic:
+            Review Decision: 
+        -->
 </html>
